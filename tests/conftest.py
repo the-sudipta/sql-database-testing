@@ -7,6 +7,10 @@ import pytest
 from qa_db.databases import build_shop, connect_chinook
 
 
+def pytest_html_report_title(report):
+    report.title = "SQL Data-Quality Test Report"
+
+
 @pytest.fixture(scope="session")
 def chinook() -> Iterator[sqlite3.Connection]:
     connection = connect_chinook()

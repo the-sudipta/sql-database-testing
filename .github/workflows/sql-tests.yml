@@ -1,0 +1,60 @@
+name: SQL data-quality tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "45 4 * * *" # nightly
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - run: uv sync --locked
+      - name: Lint
+        run: uv run ruff check . && uv run ruff format --check .
+      - name: Download and verify Chinook
+        run: uv run python scripts/download_chinook.py
+      - name: Run tests
+        run: uv run pytest --html=reports/index.html --self-contained-html --junitxml=reports/junit.xml
+      - name: Build data-quality report
+        if: always()
+        run: uv run python scripts/data_quality_report.py
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: sql-test-reports
+          path: reports/
+          retention-days: 14
+      - uses: actions/upload-pages-artifact@v4
+        if: always() && github.ref == 'refs/heads/main'
+        with:
+          path: reports
+
+  deploy:
+    needs: test
+    if: always() && github.ref == 'refs/heads/main' && needs.test.result != 'cancelled'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

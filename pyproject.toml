@@ -1,0 +1,37 @@
+[project]
+name = "sql-database-testing"
+version = "1.0.0"
+description = "SQL queries and pytest data-quality tests for the Chinook database and a small e-commerce schema"
+authors = [{ name = "Sudipta Kumar Das" }]
+requires-python = ">=3.12"
+dependencies = ["pytest>=8.4", "pytest-html>=4.1"]
+
+[dependency-groups]
+dev = ["ruff>=0.14"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra --strict-markers"
+markers = [
+    "chinook: checks on the Chinook sample database",
+    "shop: checks on the e-commerce schema",
+    "defects: proves that seeded defects are detected",
+    "etl: CSV to table ETL validation",
+    "queries: the tester query library",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N", "SIM", "PL"]
+ignore = ["PLR2004"]
+
+[tool.ruff.lint.pylint]
+max-statements = 30
+max-args = 5

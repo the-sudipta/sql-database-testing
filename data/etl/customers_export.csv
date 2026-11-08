@@ -1,0 +1,16 @@
+customer_id,first_name,last_name,email,signup_date,country_code,total_spent
+1001,  Rahim ,Uddin,RAHIM.UDDIN@EXAMPLE.COM,03/01/2026,BD,"1,250.50"
+1002,Nusrat,Jahan,nusrat.jahan@example.com,05/01/2026,BD,980.00
+1003,Karim,Hasan,karim.hasan@example.com,09/01/2026,bd,0
+1004,Priya,Sharma,priya.sharma@example.com,12/01/2026,IN,"2,400.75"
+1005,John,Miller,john.miller@example.com,15/01/2026,US,150.25
+1006,Ayesha,Rahman,ayesha.rahman@example,20/01/2026,BD,300.00
+1007,Tanvir,  Ahmed,Tanvir.Ahmed@Example.com,31/01/2026,BD,75.00
+1008,Mim,Akter,mim.akter@example.com,30/02/2026,BD,410.00
+1009,Farhana,Islam,farhana.islam@example.com,02/03/2026,XX,90.00
+1002,Nusrat,Jahan,nusrat.jahan@example.com,05/01/2026,BD,980.00
+1010,Sabbir,Hossain,sabbir.hossain@example.com,10/03/2026,BD,"12,000.00"
+1011,Lena,Fischer,lena.fischer@example.com,11/03/2026,DE,640.10
+1012,Arjun,Patel,,14/03/2026,IN,220.00
+1013,Emily,Clark,emily.clark@example.com,18/03/2026,US,-50.00
+1014,Jamal,Mia,jamal.mia@example.com,21/03/2026,BD,1999.99
